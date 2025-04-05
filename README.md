@@ -244,6 +244,12 @@ export const {
 
 ## Utilities
 
+## Redirect important notice!
+
+If you want to use `throw` with any of the `redirectWith...` utilities you need to `await` the function call. This is because `redirectWith...` utilities have to generate a cookie and set it on the headers and if that is not awaited the headers won't be set properly and the redirect won't work.
+
+
+
 ### redirectWithToast
 
 General function that allows you to redirect to a new route and show a toast message.
