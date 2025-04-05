@@ -1,15 +1,15 @@
-import { data, type LinksFunction, type LoaderFunctionArgs } from "react-router";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "react-router";
 import { useEffect } from "react";
+import { type LinksFunction, type LoaderFunctionArgs, data } from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "react-router";
 import { ToastContainer, toast as notify } from "react-toastify";
 import toastStyles from "react-toastify/ReactToastify.css?url";
-import { getToast } from "remix-toast";
+import { getToast, unstable_toastMiddleware } from "remix-toast/middleware";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: toastStyles }];
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const { toast, headers } = await getToast(request);
-  return data({ toast }, { headers });
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+  const toast = getToast(context);
+  return { toast };
 };
 
 export default function App() {
@@ -38,3 +38,5 @@ export default function App() {
     </html>
   );
 }
+
+export const unstable_middleware = [unstable_toastMiddleware()];

@@ -43,6 +43,41 @@ export const action = () => {
 
 ## Setup
 
+### Server-side (middleware mode)
+
+In order to be able to show toasts anywhere in the app you need to add the following code to your `root.tsx` file.
+
+```tsx
+import { getToast, unstable_toastMiddleware } from "remix-toast/middleware";
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  // Extracts the toast from the request
+  const toast = getToast(context); 
+  // pass it to the client side
+  return { toast }
+}
+
+export default function App({ children }: { children: ReactNode }) {
+  const { toast } = useLoaderData<typeof loader>();
+  
+  useEffect(() => {
+   if(toast){
+    // Call your toast function here
+    alert(toast.message);
+   }
+  }, [toast])
+
+  return (
+    ...
+  );
+}
+
+// Export the middleware to be used in the app
+export const unstable_middleware = [unstable_toastMiddleware()];
+
+```
+
+
 ### Server-side
 
 In order to be able to show toasts anywhere in the app you need to add the following code to your `root.tsx` file.

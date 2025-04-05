@@ -1,6 +1,6 @@
 {
   "name": "remix-toast",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Utility functions for server-side toast notifications",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -19,6 +19,20 @@
         "default": "./dist/index.cjs"
       },
       "types": "./dist/index.d.ts"
+    },
+    "./middleware": {
+      "import": {
+        "types": "./dist/middleware/index.d.ts",
+        "default": "./dist/middleware/index.js",
+        "import": "./dist/middleware/index.js"
+      },
+      "require": {
+        "types": "./dist/middleware/index.d.cts",
+        "import": "./dist/middleware/index.cjs",
+        "require": "./dist/middleware/index.cjs",
+        "default": "./dist/middleware/index.cjs"
+      },
+      "types": "./dist/middleware/index.d.ts"
     }
   },
   "typings": "./dist/index.d.ts",
@@ -30,8 +44,8 @@
     "."
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
-    "dev-build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/index.ts src/middleware/index.ts --format cjs,esm --dts --clean",
+    "dev-build": "tsup src/index.ts src/middleware/index.ts --format cjs,esm --dts --clean",
     "react-router-dev": "npm run dev -w test-apps/react-router",
     "build:dev": "npm run dev-build",
     "build:dev:watch": "npm run dev-build -- --watch",
@@ -47,7 +61,7 @@
     "format-code": "npm run prettier:fix & npm run lint:fix"
   },
   "peerDependencies": {
-    "react-router": ">=7.0.0"
+    "react-router": ">=7.5.0"
   },
   "repository": {
     "type": "git",
@@ -81,7 +95,6 @@
     "happy-dom": "^9.5.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.0.1",
-    "react-router": "^7.0.1",
     "tsup": "^7.2.0",
     "typescript": "^5.0.4",
     "vite": "^4.2.1",

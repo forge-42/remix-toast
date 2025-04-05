@@ -1,26 +1,14 @@
 import {
-  redirect,
-  SessionStorage,
   SessionIdStorageStrategy,
+  type SessionStorage,
   createCookieSessionStorage,
   data as dataFn,
+  redirect,
 } from "react-router";
-import { FlashSessionValues, ToastMessage, flashSessionValuesSchema } from "./schema";
+import { type FlashSessionValues, type ToastMessage, flashSessionValuesSchema } from "./schema";
+import { type ToastCookieOptions, sessionStorage, toastCookieOptions } from "./session";
 
 const FLASH_SESSION = "flash";
-type ToastCookieOptions = Partial<SessionIdStorageStrategy["cookie"]>;
-
-const toastCookieOptions = {
-  name: "toast-session",
-  sameSite: "lax",
-  path: "/",
-  httpOnly: true,
-  secrets: ["s3Cr3t"],
-} satisfies ToastCookieOptions;
-
-const sessionStorage = createCookieSessionStorage({
-  cookie: toastCookieOptions,
-});
 
 /**
  * Sets the cookie options to be used for the toast cookie
