@@ -1,12 +1,19 @@
 import type { MetaFunction } from "react-router";
 import { Link, useSubmit } from "react-router";
-import { redirectWithError } from "remix-toast";
+import { setToast } from "remix-toast/middleware";
+import type { Route } from "./+types/_index";
 
 export const meta: MetaFunction = () => {
   return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
 };
-export const action = () => {
-  return redirectWithError("/test", "This is an error message");
+export const action = ({ context }: Route.ActionArgs) => {
+  setToast(context, {
+    message: "test toast",
+    description: "from middleware",
+    type: "success",
+  });
+  console.log("here?");
+  return null;
 };
 
 export default function Index() {
@@ -15,6 +22,7 @@ export default function Index() {
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>
       <ul>
+        {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
         <button onClick={() => submit("/", { method: "post" })}>Click Me</button>
         <li>
           <a target="_blank" href="https://remix.run/tutorials/blog" rel="noreferrer">

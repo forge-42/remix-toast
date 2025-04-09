@@ -1,14 +1,12 @@
+import { type SessionStorage, createCookieSessionStorage, data as dataFn, redirect } from "react-router";
 import {
-  SessionIdStorageStrategy,
-  type SessionStorage,
-  createCookieSessionStorage,
-  data as dataFn,
-  redirect,
-} from "react-router";
-import { type FlashSessionValues, type ToastMessage, flashSessionValuesSchema } from "./schema";
+  FLASH_SESSION,
+  type FlashSessionValues,
+  type ToastMessage,
+  type ToastMessageWithoutType,
+  flashSessionValuesSchema,
+} from "./schema";
 import { type ToastCookieOptions, sessionStorage, toastCookieOptions } from "./session";
-
-const FLASH_SESSION = "flash";
 
 /**
  * Sets the cookie options to be used for the toast cookie
@@ -71,7 +69,7 @@ type BaseFactoryType = {
 const dataWithToastFactory = ({ type, session }: BaseFactoryType) => {
   return <T>(
     data: T,
-    messageOrToast: string | Omit<ToastMessage, "type">,
+    messageOrToast: string | ToastMessageWithoutType,
     init?: ResponseInit,
     customSession?: SessionStorage,
   ) => {
@@ -83,7 +81,7 @@ const dataWithToastFactory = ({ type, session }: BaseFactoryType) => {
 const redirectWithToastFactory = ({ type, session }: BaseFactoryType) => {
   return (
     redirectUrl: string,
-    messageOrToast: string | Omit<ToastMessage, "type">,
+    messageOrToast: string | ToastMessageWithoutType,
     init?: ResponseInit,
     customSession?: SessionStorage,
   ) => {
