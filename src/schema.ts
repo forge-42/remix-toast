@@ -24,3 +24,4 @@ export const flashSessionValuesSchema = z.object({
 export type ToastMessage = z.infer<typeof toastMessageSchema> & {};
 export type ToastMessageWithoutType = z.infer<typeof toastMessageWithoutTypeSchema> & {};
 export type FlashSessionValues = z.infer<typeof flashSessionValuesSchema>;
+export const FLASH_SESSION = "flash";

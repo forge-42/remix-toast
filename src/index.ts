@@ -1,13 +1,12 @@
 import { type SessionStorage, createCookieSessionStorage, data as dataFn, redirect } from "react-router";
 import {
+  FLASH_SESSION,
   type FlashSessionValues,
   type ToastMessage,
   type ToastMessageWithoutType,
   flashSessionValuesSchema,
 } from "./schema";
 import { type ToastCookieOptions, sessionStorage, toastCookieOptions } from "./session";
-
-const FLASH_SESSION = "flash";
 
 /**
  * Sets the cookie options to be used for the toast cookie

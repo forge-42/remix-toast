@@ -1,14 +1,19 @@
 import type { MetaFunction } from "react-router";
 import { Link, useSubmit } from "react-router";
-import { dataWithError, dataWithToast, redirectWithError, redirectWithToast } from "remix-toast";
+import { setToast } from "remix-toast/middleware";
+import type { Route } from "./+types/_index";
 
 export const meta: MetaFunction = () => {
   return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
 };
-export const action = () => {
-  dataWithToast("/test", { message: "this is a message", type: "success" });
-  redirectWithToast("/test", { message: "this is a message", type: "success" });
-  return redirectWithError("/test", { message: "t", description: "" });
+export const action = ({ context }: Route.ActionArgs) => {
+  setToast(context, {
+    message: "test toast",
+    description: "from middleware",
+    type: "success",
+  });
+  console.log("here?");
+  return null;
 };
 
 export default function Index() {
