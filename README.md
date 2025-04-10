@@ -5,6 +5,9 @@
 ![npm](https://img.shields.io/npm/dy/remix-toast?style=plastic) 
 ![npm](https://img.shields.io/npm/dw/remix-toast?style=plastic) 
 ![GitHub top language](https://img.shields.io/github/languages/top/forge-42/remix-toast?style=plastic)
+ 
+
+<img src="./assets/mascott.png" alt="mascot" width="200" height="200" align="right" />
 
 Simple server-side toast management library for React router v7 / Remix.run!
 
@@ -48,17 +51,22 @@ export const action = () => {
 In order to be able to show toasts anywhere in the app you need to add the following code to your `root.tsx` file.
 
 ```tsx
-import { getToast, unstable_toastMiddleware } from "remix-toast/middleware";
+import { getToast, setToast, unstable_toastMiddleware } from "remix-toast/middleware";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context }: Route.LoaderArgs) => {
   // Extracts the toast from the request
   const toast = getToast(context); 
   // pass it to the client side
   return { toast }
 }
 
-export default function App({ children }: { children: ReactNode }) {
-  const { toast } = useLoaderData<typeof loader>();
+export const action = async ({ request, context }: Route.ActionArgs) => {
+  setToast(context, { message: "hello toast!", type: "success" }); 
+  return null
+}
+
+export default function App({ loaderData }: Route.ComponentArgs) {
+  const { toast } = loaderData
   
   useEffect(() => {
    if(toast){
