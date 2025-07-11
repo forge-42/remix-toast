@@ -82,7 +82,7 @@
   "homepage": "https://github.com/forge-42/remix-toast#readme",
   "readme": "https://github.com/forge-42/remix-toast#readme",
   "dependencies": {
-    "zod": "^3.22.3"
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",

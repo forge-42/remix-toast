@@ -1,21 +1,19 @@
 import { z } from "zod";
 
 export const toastMessageSchema = z
-  .object({
+  .looseObject({
     message: z.string(),
     description: z.string().optional(),
     duration: z.number().int().positive().optional(),
     type: z.custom<"info" | "success" | "error" | "warning">(),
   })
-  .passthrough();
 
 const toastMessageWithoutTypeSchema = z
-  .object({
+  .looseObject({
     message: z.string(),
     description: z.string().optional(),
     duration: z.number().int().positive().optional(),
-  })
-  .passthrough();
+  });
 
 export const flashSessionValuesSchema = z.object({
   toast: toastMessageSchema.optional(),
