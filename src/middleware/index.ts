@@ -19,7 +19,14 @@ export function unstable_toastMiddleware(props?: { customSession?: SessionStorag
 
     context.set(toastContext, toast ?? null);
     // Call the next middleware or route handler
-    const res = await next();
+    const res = await next().catch((err: unknown) => {
+      // if the error is a response, continue to apply the toast middleware
+      if (err instanceof Response) {
+        return err;
+      }
+      // otherwise let the error bubble up
+      throw err;
+    });
 
     if (res instanceof Response && toast) {
       res.headers.append("Set-Cookie", headers.get("Set-Cookie") ?? "");
