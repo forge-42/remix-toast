@@ -9,6 +9,7 @@ export const toastMessageSchema = z
   })
   .passthrough();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const toastMessageWithoutTypeSchema = z
   .object({
     message: z.string(),
