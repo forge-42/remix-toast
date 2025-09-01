@@ -29,7 +29,7 @@ npm install remix-toast
 
 ## Remix.run
 
-If you are using Remix.run you can use v1.2.2 of this library or lower. V2 and v3 work with React Router v7 until v7.8.0, while V4.x onwards requires React Router v7.8.0 or later.
+If you are using Remix.run you can use v1.2.2 of this library or lower. v2 and v3.1 work with React Router v7 until v7.8.0, while v3.2 onwards requires React Router v7.8.0 or later.
 
 ### Migration guide to react-router v7
 
