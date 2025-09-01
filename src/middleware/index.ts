@@ -36,8 +36,12 @@ export function unstable_toastMiddleware(props?: { customSession?: SessionStorag
   };
 }
 
-export const setToast = (context: Readonly<unstable_RouterContextProvider>, toast: ToastMessage | null) => {
+export const setToast = (
+  context: unstable_RouterContextProvider | Readonly<unstable_RouterContextProvider>,
+  toast: ToastMessage | null,
+) => {
   context.set(sessionToastContext, toast);
 };
 
-export const getToast = (context: Readonly<unstable_RouterContextProvider>) => context.get(toastContext);
+export const getToast = (context: unstable_RouterContextProvider | Readonly<unstable_RouterContextProvider>) =>
+  context.get(toastContext);
