@@ -3,7 +3,7 @@ import { type LinksFunction, type LoaderFunctionArgs, data } from "react-router"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "react-router";
 import { ToastContainer, toast as notify } from "react-toastify";
 import toastStyles from "react-toastify/ReactToastify.css?url";
-import { getToast, unstable_toastMiddleware } from "remix-toast/middleware";
+import { getToast, toastMiddleware } from "remix-toast/middleware";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: toastStyles }];
 
@@ -39,4 +39,4 @@ export default function App() {
   );
 }
 
-export const unstable_middleware = [unstable_toastMiddleware()];
+export const middleware = [toastMiddleware()];
