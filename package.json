@@ -1,6 +1,6 @@
 {
   "name": "remix-toast",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Utility functions for server-side toast notifications",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -61,7 +61,7 @@
     "format-code": "npm run prettier:fix & npm run lint:fix"
   },
   "peerDependencies": {
-    "react-router": ">=7.8.0"
+    "react-router": ">=7.9.0"
   },
   "repository": {
     "type": "git",

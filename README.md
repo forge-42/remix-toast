@@ -52,7 +52,7 @@ export const action = () => {
 In order to be able to show toasts anywhere in the app you need to add the following code to your `root.tsx` file.
 
 ```tsx
-import { getToast, setToast, unstable_toastMiddleware } from "remix-toast/middleware";
+import { getToast, setToast, toastMiddleware } from "remix-toast/middleware";
 
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
   // Extracts the toast from the request
@@ -82,7 +82,7 @@ export default function App({ loaderData }: Route.ComponentArgs) {
 }
 
 // Export the middleware to be used in the app
-export const unstable_middleware = [unstable_toastMiddleware()];
+export const middleware = [toastMiddleware()];
 
 ```
 
