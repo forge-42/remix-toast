@@ -38,8 +38,7 @@ export const setToast = (
   context.set(sessionToastContext, toast);
 };
 
-export const getToast = (context: RouterContextProvider | Readonly<RouterContextProvider>) =>
-  context.get(toastContext);
+export const getToast = (context: RouterContextProvider | Readonly<RouterContextProvider>) => context.get(toastContext);
 
 /**
  * @deprecated Use `toastMiddleware` instead.
