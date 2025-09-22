@@ -1,11 +1,11 @@
 # Remix Toast
+
 ![GitHub Repo stars](https://img.shields.io/github/stars/forge-42/remix-toast?style=social)
 ![npm](https://img.shields.io/npm/v/remix-toast?style=plastic)
 ![GitHub](https://img.shields.io/github/license/forge-42/remix-toast?style=plastic)
-![npm](https://img.shields.io/npm/dy/remix-toast?style=plastic) 
-![npm](https://img.shields.io/npm/dw/remix-toast?style=plastic) 
+![npm](https://img.shields.io/npm/dy/remix-toast?style=plastic)
+![npm](https://img.shields.io/npm/dw/remix-toast?style=plastic)
 ![GitHub top language](https://img.shields.io/github/languages/top/forge-42/remix-toast?style=plastic)
- 
 
 <img src="./assets/mascott.png" alt="mascot" width="200" height="200" align="right" />
 
@@ -20,6 +20,7 @@ library is server agnostic and should work with any server setup.
 
 If you wish to read an in depth explanation of how this works you can find it here:
 https://alemtuzlak.hashnode.dev/handling-toasts-in-remix
+
 ## Installation
 
 ```bash
@@ -38,7 +39,7 @@ If you are using react-router v7 you can use v2.0.0 of this library. The only th
 - import { jsonWithSuccess } from "remix-toast";
 + import { dataWithSuccess } from "remix-toast";
 
-export const action = () => { 
+export const action = () => {
 - return jsonWithSuccess({ result: "Data saved successfully" }, "Operation successful! 🎉");
 + return dataWithSuccess({ result: "Data saved successfully" }, "Operation successful! 🎉");
 };
@@ -51,23 +52,23 @@ export const action = () => {
 In order to be able to show toasts anywhere in the app you need to add the following code to your `root.tsx` file.
 
 ```tsx
-import { getToast, setToast, unstable_toastMiddleware } from "remix-toast/middleware";
+import { getToast, setToast, toastMiddleware } from "remix-toast/middleware";
 
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
   // Extracts the toast from the request
-  const toast = getToast(context); 
+  const toast = getToast(context);
   // pass it to the client side
   return { toast }
 }
 
 export const action = async ({ request, context }: Route.ActionArgs) => {
-  setToast(context, { message: "hello toast!", type: "success" }); 
+  setToast(context, { message: "hello toast!", type: "success" });
   return null
 }
 
 export default function App({ loaderData }: Route.ComponentArgs) {
   const { toast } = loaderData
-  
+
   useEffect(() => {
    if(toast){
     // Call your toast function here
@@ -81,10 +82,9 @@ export default function App({ loaderData }: Route.ComponentArgs) {
 }
 
 // Export the middleware to be used in the app
-export const unstable_middleware = [unstable_toastMiddleware()];
+export const middleware = [toastMiddleware()];
 
 ```
-
 
 ### Server-side
 
@@ -102,7 +102,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function App({ children }: { children: ReactNode }) {
   const { toast } = useLoaderData<typeof loader>();
-  
+
   useEffect(() => {
    if(toast){
     // Call your toast function here
@@ -115,6 +115,7 @@ export default function App({ children }: { children: ReactNode }) {
   );
 }
 ```
+
 ### Client-side
 
 After this you can then use any toast notification library you prefer, but here are some examples:
@@ -149,9 +150,7 @@ export default function App() {
 
   return (
     <html lang="en">
-      <head>
-        ...
-      </head>
+      <head>...</head>
       <body>
         ...
         {/* Add the toast container */}
@@ -162,7 +161,7 @@ export default function App() {
 }
 ```
 
-![react-toastify](./assets/react-toastify.gif) 
+![react-toastify](./assets/react-toastify.gif)
 
 #### Sonner
 
@@ -204,7 +203,7 @@ export default function App() {
 }
 ```
 
-![react-toastify](./assets/sonner.gif) 
+![react-toastify](./assets/sonner.gif)
 
 ## Overriding cookie options
 
@@ -213,11 +212,8 @@ You can override the default cookie options by passing in your own options via t
 ```tsx
 import { setToastCookieOptions } from "remix-toast";
 
-setToastCookieOptions({ 
-  secrets:
-    process.env.NODE_ENV === "production"
-      ? [process.env.SESSION_SECRET]
-      : ["secret"]
+setToastCookieOptions({
+  secrets: process.env.NODE_ENV === "production" ? [process.env.SESSION_SECRET] : ["secret"],
 });
 ```
 
@@ -238,15 +234,15 @@ const session = createCookieSessionStorage({
 
 export const {
   getToast,
-  redirectWithToast, 
-  redirectWithSuccess, 
-  redirectWithError, 
-  redirectWithInfo, 
-  redirectWithWarning, 
-  dataWithSuccess, 
-  dataWithError, 
-  dataWithInfo, 
-  dataWithWarning 
+  redirectWithToast,
+  redirectWithSuccess,
+  redirectWithError,
+  redirectWithInfo,
+  redirectWithWarning,
+  dataWithSuccess,
+  dataWithError,
+  dataWithInfo,
+  dataWithWarning,
 } = createToastUtilsWithCustomSession(session);
 ```
 
@@ -256,8 +252,6 @@ export const {
 
 If you want to use `throw` with any of the `redirectWith...` utilities you need to `await` the function call. This is because `redirectWith...` utilities have to generate a cookie and set it on the headers and if that is not awaited the headers won't be set properly and the redirect won't work.
 
-
-
 ### redirectWithToast
 
 General function that allows you to redirect to a new route and show a toast message.
@@ -266,9 +260,12 @@ General function that allows you to redirect to a new route and show a toast mes
 import { redirectWithToast } from "remix-toast";
 
 export const action = () => {
-  return redirectWithToast("/login", { message: "You need to login to access this page", description: "description of toast", type: "error" });
-}
-
+  return redirectWithToast("/login", {
+    message: "You need to login to access this page",
+    description: "description of toast",
+    type: "error",
+  });
+};
 ```
 
 ### redirectWithSuccess
@@ -279,11 +276,10 @@ Redirects to a new route and shows a success toast message.
 import { redirectWithSuccess } from "remix-toast";
 
 export const action = () => {
-  return redirectWithSuccess("/login", "You are logged in!"); 
+  return redirectWithSuccess("/login", "You are logged in!");
   //or with description and message (works for all the other utilities as well)
   return redirectWithSuccess("/login", { message: "You are logged in!", description: "description of toast" });
-}
-
+};
 ```
 
 ### redirectWithError
@@ -295,8 +291,7 @@ import { redirectWithError } from "remix-toast";
 
 export const action = () => {
   return redirectWithError("/login", "You need to login to access this page");
-}
-
+};
 ```
 
 ### redirectWithInfo
@@ -332,8 +327,11 @@ import { dataWithSuccess } from "remix-toast";
 
 export const action = () => {
   return dataWithSuccess({ result: "Data saved successfully" }, "Operation successful! 🎉");
-   //or with description and message (works for all the other utilities as well)
-  return dataWithSuccess({ result: "Data saved successfully" }, { message: "Operation successful! 🎉", description: "description of toast" });
+  //or with description and message (works for all the other utilities as well)
+  return dataWithSuccess(
+    { result: "Data saved successfully" },
+    { message: "Operation successful! 🎉", description: "description of toast" },
+  );
 };
 ```
 
