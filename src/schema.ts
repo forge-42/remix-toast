@@ -14,8 +14,7 @@ const toastMessageWithoutTypeSchema = z
     message: z.string(),
     description: z.string().optional(),
     duration: z.number().int().nonnegative().optional(),
-  })
-  .passthrough();
+  });
 
 export const flashSessionValuesSchema = z.object({
   toast: toastMessageSchema.optional(),
