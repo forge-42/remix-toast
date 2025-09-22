@@ -4,7 +4,7 @@ export const toastMessageSchema = z
   .object({
     message: z.string(),
     description: z.string().optional(),
-    duration: z.number().int().positive().optional(),
+    duration: z.number().int().nonnegative().optional(),
     type: z.custom<"info" | "success" | "error" | "warning">(),
   })
   .passthrough();
@@ -14,7 +14,7 @@ const toastMessageWithoutTypeSchema = z
   .object({
     message: z.string(),
     description: z.string().optional(),
-    duration: z.number().int().positive().optional(),
+    duration: z.number().int().nonnegative().optional(),
   })
   .passthrough();
 
