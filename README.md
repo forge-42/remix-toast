@@ -66,7 +66,7 @@ export const action = async ({ request, context }: Route.ActionArgs) => {
   return null
 }
 
-export default function App({ loaderData }: Route.ComponentArgs) {
+export default function App({ loaderData }: Route.ComponentProps) {
   const { toast } = loaderData
 
   useEffect(() => {
