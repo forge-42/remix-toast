@@ -239,6 +239,11 @@ export const {
   redirectWithError,
   redirectWithInfo,
   redirectWithWarning,
+  replaceWithToast,
+  replaceWithSuccess,
+  replaceWithError,
+  replaceWithInfo,
+  replaceWithWarning,
   dataWithSuccess,
   dataWithError,
   dataWithInfo,
@@ -248,9 +253,9 @@ export const {
 
 ## Utilities
 
-## Redirect important notice!
+## Redirect/replace important notice!
 
-If you want to use `throw` with any of the `redirectWith...` utilities you need to `await` the function call. This is because `redirectWith...` utilities have to generate a cookie and set it on the headers and if that is not awaited the headers won't be set properly and the redirect won't work.
+If you want to use `throw` with any of the `redirectWith...` or `replaceWith...` utilities you need to `await` the function call. This is because those utilities have to generate a cookie and set it on the headers and if that is not awaited the headers won't be set properly and the redirect won't work.
 
 ### redirectWithToast
 
@@ -315,6 +320,72 @@ import { redirectWithWarning } from "remix-toast";
 
 export const action = () => {
   return redirectWithWarning("/login", "You need to login to access this page");
+};
+```
+
+### replaceWithToast
+
+Replaces the current entry in the history stack and shows a toast message.
+
+```tsx
+import { replaceWithToast } from "remix-toast";
+
+export const action = () => {
+  return replaceWithToast("/login", {
+    message: "You need to login to access this page",
+    description: "description of toast",
+    type: "error",
+  });
+};
+```
+
+### replaceWithSuccess
+
+Replaces the current entry in the history stack and shows a success toast message.
+
+```tsx
+import { replaceWithSuccess } from "remix-toast";
+
+export const action = () => {
+  return replaceWithSuccess("/login", "You are logged in!");
+  //or with description and message (works for all the other utilities as well)
+  return replaceWithSuccess("/login", { message: "You are logged in!", description: "description of toast" });
+};
+```
+
+### replaceWithError
+
+Replaces the current entry in the history stack and shows an error toast message.
+
+```tsx
+import { replaceWithError } from "remix-toast";
+
+export const action = () => {
+  return replaceWithError("/login", "You need to login to access this page");
+};
+```
+
+### replaceWithInfo
+
+Replaces the current entry in the history stack and shows an info toast message.
+
+```tsx
+import { replaceWithInfo } from "remix-toast";
+
+export const action = () => {
+  return replaceWithInfo("/login", "You need to login to access this page");
+};
+```
+
+### replaceWithWarning
+
+Replaces the current entry in the history stack and shows a warning toast message.
+
+```tsx
+import { replaceWithWarning } from "remix-toast";
+
+export const action = () => {
+  return replaceWithWarning("/login", "You need to login to access this page");
 };
 ```
 
