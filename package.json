@@ -1,6 +1,6 @@
 {
   "name": "remix-toast",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "description": "Utility functions for server-side toast notifications",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -82,7 +82,7 @@
   "homepage": "https://github.com/forge-42/remix-toast#readme",
   "readme": "https://github.com/forge-42/remix-toast#readme",
   "dependencies": {
-    "zod": "^3.22.3"
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
